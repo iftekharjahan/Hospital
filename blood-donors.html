@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="রক্তদাতা">
+  <title>রক্তদাতা | As-Shifa Hospital</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="assets/app.js" defer></script>
+</head>
+<body>
+<div class="topbar"><div class="container"><span>📍 মহিপাল, ফেনী, বাংলাদেশ</span><span>জরুরি অবস্থায় জাতীয় জরুরি সেবা: <a href="tel:999">৯৯৯</a></span></div></div>
+<header class="header"><div class="container navbar"><a class="logo" href="index.html"><span class="logo-mark">+</span><span><strong>As-Shifa Hospital</strong><small>আশ-শিফা হাসপাতাল · মহিপাল, ফেনী</small></span></a><button id="menu-toggle" class="menu-toggle" aria-expanded="false" aria-controls="navlinks">☰ মেনু</button><nav class="navlinks" id="navlinks" aria-label="প্রধান মেনু"><a class="" href="index.html">হোম</a><a class="" href="about.html">আমাদের সম্পর্কে</a><a class="" href="departments.html">বিভাগ</a><a class="" href="doctors.html">ডাক্তার</a><a class="" href="appointments.html">সিরিয়াল</a><a class="" href="live-serial.html">লাইভ সিরিয়াল</a><a class="" href="tests.html">ডায়াগনস্টিক</a><a class="" href="pharmacy.html">ফার্মেসি</a><a class="" href="ambulance.html">জরুরি সেবা</a><a class="active" href="blood-donors.html">রক্তদাতা</a><a class="" href="contact.html">যোগাযোগ</a></nav><a class="btn nav-cta" href="appointments.html">সিরিয়াল নিন</a></div></header>
+<main id="main">
+  <section class="pagehead">
+    <div class="container">
+      <span class="eyebrow">BLOOD DONOR SUPPORT</span>
+      <h1>রক্তদাতা সহায়তা</h1>
+      <p>রক্তের গ্রুপ ও এলাকা অনুযায়ী সম্মতিপ্রাপ্ত রক্তদাতা খোঁজার জন্য প্রস্তুত পেজ।</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="notice">ডেমো সংস্করণ: বর্তমানে কোনো যাচাইকৃত রক্তদাতা নেই। নিচের ফর্মের তথ্য সার্ভারে জমা হয় না। জরুরি রক্তের প্রয়োজন হলে হাসপাতাল বা নিবন্ধিত ব্লাড ব্যাংকের সঙ্গে সরাসরি যোগাযোগ করুন।</div>
+      <div class="feature-grid">
+        <div class="panel">
+          <h2>রক্তদাতা খুঁজুন</h2>
+          <div class="form-grid">
+            <label class="field">রক্তের গ্রুপ
+              <select id="donor-group"><option value="">সব গ্রুপ</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option></select>
+            </label>
+            <label class="field">এলাকা
+              <input id="donor-area" type="search" placeholder="যেমন: মহিপাল, ফেনী">
+            </label>
+          </div>
+          <div class="empty" id="donor-results" aria-live="polite">
+            <h3>কোনো যাচাইকৃত রক্তদাতা পাওয়া যায়নি</h3>
+            <p>নিরাপত্তা ও গোপনীয়তার জন্য কাল্পনিক ব্যক্তির নাম বা ফোন নম্বর প্রকাশ করা হচ্ছে না।</p>
+          </div>
+        </div>
+        <form class="form" data-demo-form>
+          <h2>ডোনার নিবন্ধন (ডেমো)</h2>
+          <p>বাস্তব সিস্টেমে সম্মতি, বয়স ও স্বাস্থ্যসংক্রান্ত উপযুক্ততা যাচাই করে নিবন্ধন করতে হবে।</p>
+          <div class="form-grid">
+            <label class="field">নাম <input required name="name" placeholder="নমুনা নাম"></label>
+            <label class="field">রক্তের গ্রুপ <select required name="group"><option value="">নির্বাচন করুন</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option></select></label>
+            <label class="field">এলাকা <input required name="area" placeholder="নমুনা এলাকা"></label>
+            <label class="field">যোগাযোগ নম্বর <input required name="phone" inputmode="tel" pattern="01[0-9]{9}" placeholder="01XXXXXXXXX"></label>
+            <label class="field full consent"><input required type="checkbox"> আমি বুঝেছি এটি শুধু ডেমো; কোনো নিবন্ধন সম্পন্ন হবে না।</label>
+          </div>
+          <button class="btn" type="submit">ডেমো ফর্ম যাচাই করুন</button>
+          <p class="notice success" data-form-result hidden role="status"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+  <section class="section section-soft"><div class="container"><h2>রক্তের জরুরি প্রয়োজন?</h2><p>জরুরি অবস্থায় ওয়েবসাইটে অপেক্ষা না করে সরাসরি নিকটস্থ হাসপাতাল বা ব্লাড ব্যাংকে যোগাযোগ করুন।</p><a class="btn" href="contact.html">যোগাযোগ পেজ</a> <a class="btn btn-outline" href="tel:999">জাতীয় জরুরি সেবা ৯৯৯</a></div></section>
+</main>
+<footer><div class="container"><div class="footer-grid"><div><h3>As-Shifa Hospital</h3><p>আশ-শিফা হাসপাতাল — মহিপাল, ফেনী, বাংলাদেশ। এই ওয়েবসাইটের সেবার তথ্য ডেমো; হাসপাতালের যাচাইকৃত তথ্য যুক্ত করতে হবে।</p></div><div><h3>দ্রুত লিংক</h3><a href="doctors.html">ডাক্তার</a><a href="appointments.html">অ্যাপয়েন্টমেন্ট</a><a href="tests.html">ডায়াগনস্টিক</a><a href="contact.html">যোগাযোগ</a></div><div><h3>গুরুত্বপূর্ণ</h3><a href="ambulance.html">জরুরি তথ্য</a><a href="billing.html">বিল ও bKash</a><a href="dashboard.html">ড্যাশবোর্ড</a><a href="privacy.html">গোপনীয়তা</a></div></div><div class="footer-bottom">© 2026 As-Shifa Hospital · Demo website · বাস্তব রোগীর তথ্য জমা দেবেন না।</div></div></footer>
+</body>
+</html>

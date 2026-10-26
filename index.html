@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="bn">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="হোম">
+  <title>হোম | As-Shifa Hospital</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    /* Slide animations for the homepage and hero picture */
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(28px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(42px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-28px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes softZoom {
+      from {
+        opacity: 0;
+        scale: .97;
+      }
+
+      to {
+        opacity: 1;
+        scale: 1;
+      }
+    }
+
+    #main .hero .container>div {
+      animation: slideInLeft .8s ease-out both;
+    }
+
+    #main .hero .hero-image {
+      animation: slideInRight .9s ease-out .15s both;
+      transition: transform .35s ease, filter .35s ease;
+    }
+
+    #main .hero .hero-image:hover {
+      transform: scale(1.025);
+      filter: saturate(1.08);
+    }
+
+    #main>section:not(.hero) {
+      animation: slideInUp .7s ease-out both;
+    }
+
+    #main>section:nth-child(2) {
+      animation-delay: .12s;
+    }
+
+    #main>section:nth-child(3) {
+      animation-delay: .2s;
+    }
+
+    #main>section:nth-child(4) {
+      animation-delay: .28s;
+    }
+
+    #main .card {
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    #main .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 28px rgba(16, 70, 90, .12);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      #main .hero .container>div,
+      #main .hero .hero-image,
+      #main>section:not(.hero) {
+        animation: none !important;
+      }
+
+      #main .hero .hero-image,
+      #main .card {
+        transition: none !important;
+      }
+
+      #main .hero .hero-image:hover,
+      #main .card:hover {
+        transform: none;
+      }
+    }
+
+    /* Homepage specialists and special services */
+    .specialist-card {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .specialist-card h3,
+    .specialist-card p {
+      margin: 0;
+    }
+
+    .specialist-card .btn {
+      margin-top: auto;
+    }
+
+    .doctor-avatar {
+      width: 78px;
+      height: 78px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #e0f7f5, #dceafd);
+      font-size: 35px;
+      margin: 4px auto;
+    }
+
+    .specialty {
+      color: var(--primary, #087c87);
+      font-weight: 700;
+    }
+
+    .unique-service {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .unique-service .iconbox {
+      font-size: 27px;
+    }
+
+    .service-disclaimer {
+      margin-top: 22px;
+      font-size: 13px;
+      opacity: .8;
+    }
+
+    #specialist-doctors .grid,
+    #unique-services .grid {
+      gap: 20px;
+    }
+
+    @media(min-width:800px) {
+      #unique-services .grid-three {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media(max-width:799px) {
+      #unique-services .grid-three {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media(max-width:480px) {
+      #unique-services .grid-three {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Doctor carousel — isolated from existing .grid rules */
+    #specialist-doctors .doctor-carousel {
+      position: relative;
+      padding: 0 44px;
+    }
+
+    #specialist-doctors .doctor-slider {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 20px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      padding: 10px 2px 20px;
+    }
+
+    #specialist-doctors .doctor-slider::-webkit-scrollbar {
+      display: none;
+    }
+
+    #specialist-doctors .doctor-slide {
+      flex: 0 0 calc((100% - 40px)/3);
+      min-width: 0;
+      box-sizing: border-box;
+      scroll-snap-align: start;
+    }
+
+    #specialist-doctors .doctor-prev,
+    #specialist-doctors .doctor-next {
+      position: absolute;
+      top: 43%;
+      transform: translateY(-50%);
+      width: 36px;
+      height: 40px;
+      border: 0;
+      border-radius: 12px;
+      background: #087c87;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    #specialist-doctors .doctor-prev {
+      left: 0
+    }
+
+    #specialist-doctors .doctor-next {
+      right: 0
+    }
+
+    #specialist-doctors .doctor-prev:focus-visible,
+    #specialist-doctors .doctor-next:focus-visible {
+      outline: 3px solid #f3aa36;
+      outline-offset: 3px
+    }
+
+    #specialist-doctors .doctor-photo-slot {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4/3;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #e4f4f4, #d9e9fa);
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+
+    #specialist-doctors .doctor-photo-slot img {
+      display: none;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #specialist-doctors .doctor-photo-slot.has-photo img {
+      display: block
+    }
+
+    #specialist-doctors .doctor-photo-slot.has-photo .doctor-photo-placeholder {
+      display: none
+    }
+
+    #specialist-doctors .doctor-photo-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      color: #366579;
+    }
+
+    #specialist-doctors .doctor-photo-placeholder span {
+      font-size: 42px
+    }
+
+    #specialist-doctors .doctor-demo-label {
+      font-size: 12px;
+      color: #667987
+    }
+
+    #specialist-doctors .doctor-slider-status {
+      text-align: center;
+      color: #607a85;
+      font-size: 13px;
+      margin: 4px 0 14px
+    }
+
+    @media(max-width:900px) {
+      #specialist-doctors .doctor-slide {
+        flex-basis: calc((100% - 20px)/2)
+      }
+    }
+
+    @media(max-width:600px) {
+      #specialist-doctors .doctor-carousel {
+        padding: 0 34px
+      }
+
+      #specialist-doctors .doctor-slide {
+        flex-basis: 100%
+      }
+
+      #specialist-doctors .doctor-prev,
+      #specialist-doctors .doctor-next {
+        width: 30px
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      #specialist-doctors .doctor-slider {
+        scroll-behavior: auto
+      }
+    }
+    
+/* ===== HOSPITAL HERO BACKGROUND ===== */
+
+#main .hero {
+  position: relative;
+
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(3, 38, 52, 0.88) 0%,
+      rgba(3, 38, 52, 0.65) 50%,
+      rgba(3, 38, 52, 0.25) 100%
+    ),
+    url("assets/images/hospital-bg.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  min-height: 520px;
+
+  display: flex;
+  align-items: center;
+}
+
+/* Hero text */
+
+#main .hero h1 {
+  color: #ffffff;
+}
+
+#main .hero p {
+  color: #f0f8fa;
+}
+
+#main .hero .eyebrow {
+  color: #a9f2ed;
+}
+
+#main .hero .notice {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+}
+
+/* Mobile responsive */
+
+@media (max-width: 600px) {
+  #main .hero {
+    min-height: 480px;
+    background-position: center;
+    padding: 55px 0;
+  }
+
+  #main .hero h1 {
+    font-size: clamp(30px, 8vw, 42px);
+  }
+}
+
+/* ===== DOCTOR PHOTO FIX ===== */
+
+#specialist-doctors .doctor-photo-slot {
+  position: relative;
+  width: 100%;
+  height: 230px;
+  overflow: hidden;
+  border-radius: 15px;
+  background: #e8f3f5;
+  margin-bottom: 10px;
+}
+
+#specialist-doctors .doctor-photo-slot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#specialist-doctors .doctor-photo-placeholder {
+  display: none;
+  position: absolute;
+  inset: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #e8f3f5;
+  color: #366579;
+}
+
+#specialist-doctors
+.doctor-photo-slot:not(.has-photo) img {
+  display: none;
+}
+
+#specialist-doctors
+.doctor-photo-slot:not(.has-photo)
+.doctor-photo-placeholder {
+  display: flex;
+}
+
+#specialist-doctors
+.doctor-photo-slot.has-photo
+.doctor-photo-placeholder {
+  display: none;
+}
+
+  </style>
+  <script src="assets/app.js" defer></script>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="container"><span>📍 মহিপাল, ফেনী, বাংলাদেশ</span><span>জরুরি অবস্থায় জাতীয় জরুরি সেবা: <a
+          href="tel:999">৯৯৯</a></span></div>
+  </div>
+  <header class="header">
+    <div class="container navbar"><a class="logo" href="index.html"><span
+          class="logo-mark">+</span><span><strong>As-Shifa Hospital</strong><small>আশ-শিফা হাসপাতাল · মহিপাল,
+            ফেনী</small></span></a><button id="menu-toggle" class="menu-toggle" aria-expanded="false"
+        aria-controls="navlinks">☰ মেনু</button>
+      <nav class="navlinks" id="navlinks" aria-label="প্রধান মেনু"><a class="active" href="index.html">হোম</a><a
+          class="" href="about.html">আমাদের সম্পর্কে</a><a class="" href="departments.html">বিভাগ</a><a class=""
+          href="doctors.html">ডাক্তার</a><a class="" href="appointments.html">সিরিয়াল</a><a class=""
+          href="live-serial.html">লাইভ সিরিয়াল</a><a class="" href="tests.html">ডায়াগনস্টিক</a><a class=""
+          href="pharmacy.html">ফার্মেসি</a><a class="" href="ambulance.html">জরুরি সেবা</a><a class=""
+          href="blood-donors.html">রক্তদাতা</a><a class="" href="contact.html">যোগাযোগ</a></nav><a class="btn nav-cta"
+        href="appointments.html">সিরিয়াল নিন</a>
+    </div>
+  </header>
+  <main id="main">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div><span class="eyebrow">WELCOME TO AS-SHIFA HOSPITAL</span>
+          <h1>আপনার সুস্থতা,<br><span style="color:var(--primary)">আমাদের অগ্রাধিকার</span></h1>
+          <p>মহিপাল, ফেনীতে As-Shifa Hospital-এর অনলাইন তথ্যকেন্দ্র। বিভাগসমূহ দেখুন, অ্যাপয়েন্টমেন্টের তথ্য দিন এবং
+            হাসপাতালের সঙ্গে যোগাযোগের উপায় জানুন।</p>
+          <div class="actions"><a class="btn" href="appointments.html">অ্যাপয়েন্টমেন্ট নিন →</a><a
+              class="btn btn-outline" href="departments.html">বিভাগসমূহ দেখুন</a></div>
+          <div class="notice">এই সাইটটি ডেমো। অনলাইন অনুরোধ এখনো হাসপাতালে পৌঁছায় না। জরুরি প্রয়োজনে ৯৯৯-এ কল করুন।
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section section-soft">
+      <div class="container">
+        <h2>চিকিৎসা বিভাগ</h2>
+        <p class="section-intro">নিচের বিভাগগুলো নমুনা হিসেবে দেখানো হয়েছে; বাস্তব সেবা প্রশাসক যাচাই করে প্রকাশ করবেন।
+        </p>
+        <div class="grid">
+          <article class="card" data-filter-item>
+            <div class="iconbox">🩺</div>
+            <h3>মেডিসিন</h3>
+            <p>সাধারণ রোগ ও অভ্যন্তরীণ চিকিৎসা</p>
+          </article>
+          <article class="card" data-filter-item>
+            <div class="iconbox">🫀</div>
+            <h3>কার্ডিওলজি</h3>
+            <p>হৃদরোগ বিষয়ক চিকিৎসা</p>
+          </article>
+          <article class="card" data-filter-item>
+            <div class="iconbox">🧸</div>
+            <h3>শিশু বিভাগ</h3>
+            <p>শিশুদের স্বাস্থ্যসেবা</p>
+          </article>
+          <article class="card" data-filter-item>
+            <div class="iconbox">🤰</div>
+            <h3>গাইনি ও প্রসূতি</h3>
+            <p>নারী স্বাস্থ্য ও মাতৃত্বসেবা</p>
+          </article>
+          <article class="card" data-filter-item>
+            <div class="iconbox">🦴</div>
+            <h3>অর্থোপেডিক্স</h3>
+            <p>হাড় ও জয়েন্টের সমস্যা</p>
+          </article>
+          <article class="card" data-filter-item>
+            <div class="iconbox">🧠</div>
+            <h3>নিউরোলজি</h3>
+            <p>স্নায়ুবিষয়ক চিকিৎসা</p>
+          </article>
+        </div>
+        <div class="actions"><a class="btn" href="departments.html">সব বিভাগ দেখুন</a></div>
+      </div>
+    </section>
+    <section class="section" id="specialist-doctors">
+      <div class="container">
+        <span class="eyebrow">OUR SPECIALISTS</span>
+        <h2>আমাদের বিশেষজ্ঞ চিকিৎসকগণ</h2>
+      
+        <div class="doctor-carousel" aria-label="বিশেষজ্ঞ চিকিৎসকদের স্লাইডার">
+          <button class="doctor-prev" type="button" aria-label="আগের চিকিৎসক">&#10094;</button>
+          <div class="doctor-slider" id="doctorSlider">
+            <article class="card specialist-card doctor-slide">
+             
+<div class="doctor-photo-slot">
+  <img
+    src="assets/images/doctors/doctor-1.jpg"
+    alt="ডা. আরিফুল ইসলাম"
+    onload="this.parentElement.classList.add('has-photo')"
+    onerror="this.parentElement.classList.remove('has-photo')"
+  >
+
+  <div class="doctor-photo-placeholder">
+    <span>👨‍⚕️</span>
+    <small>ছবি যুক্ত করুন</small>
+  </div>
+</div>
+
+              <h3>ডা. আরিফুল ইসলাম</h3>
+              <p class="specialty">মেডিসিন বিশেষজ্ঞ</p>
+              <a class="btn btn-outline" href="doctors.html">চিকিৎসক পেজ দেখুন</a>
+            </article>
+            <article class="card specialist-card doctor-slide">
+              <div class="doctor-photo-slot">
+  <img
+    src="assets/images/doctors/doctor-2.jpg"
+    alt="ডাক্তারের ডেমো ছবি"
+    loading="lazy"
+    onload="this.parentElement.classList.add('has-photo')"
+    onerror="this.parentElement.classList.remove('has-photo'); console.error('ছবি পাওয়া যায়নি:', this.src)"
+  >
+  <div class="doctor-photo-placeholder" aria-hidden="true">
+    <span>👨‍⚕️</span>
+    <small>ছবি যুক্ত করুন</small>
+  </div>
+</div>
+              <h3>ডা. নুসরাত জাহান</h3>
+              <p class="specialty">গাইনি ও প্রসূতি বিশেষজ্ঞ</p>
+            
+              <a class="btn btn-outline" href="doctors.html">চিকিৎসক পেজ দেখুন</a>
+            </article>
+            <article class="card specialist-card doctor-slide">
+              <div class="doctor-photo-slot">
+                <img src="assets/images/doctors/doctor-3.jpg" alt="ডা. মাহমুদ হাসান-এর ছবি" loading="lazy"
+                  onload="this.parentElement.classList.add('has-photo')"
+                  onerror="this.parentElement.classList.remove('has-photo')">
+                <div class="doctor-photo-placeholder" aria-hidden="true"><span>👨‍⚕️</span><small>ছবি যুক্ত করুন</small>
+                </div>
+              </div>
+              <h3>ডা. মাহমুদ হাসান</h3>
+              <p class="specialty">হৃদরোগ বিশেষজ্ঞ</p>
+           
+              <a class="btn btn-outline" href="doctors.html">চিকিৎসক পেজ দেখুন</a>
+            </article>
+            <article class="card specialist-card doctor-slide">
+              <div class="doctor-photo-slot">
+                <img src="./assets/images/doctors/doctor-4.jpg" alt="ডা. তাসনিম আক্তার-এর ছবি" loading="lazy"
+                  onload="this.parentElement.classList.add('has-photo')"
+                  onerror="this.parentElement.classList.remove('has-photo')">
+                <div class="doctor-photo-placeholder" aria-hidden="true"><span>👨‍⚕️</span><small>ছবি যুক্ত করুন</small>
+                </div>
+              </div>
+              <h3>ডা. তাসনিম আক্তার</h3>
+              <p class="specialty">শিশুরোগ বিশেষজ্ঞ</p>
+             
+              <a class="btn btn-outline" href="doctors.html">চিকিৎসক পেজ দেখুন</a>
+            </article>
+            <article class="card specialist-card doctor-slide">
+              <div class="doctor-photo-slot">
+                <img src="./assets/images/doctors/doctor-5.jpg" alt="ডা. সাইফুল রহমান-এর ছবি" loading="lazy"
+                  onload="this.parentElement.classList.add('has-photo')"
+                  onerror="this.parentElement.classList.remove('has-photo')">
+                <div class="doctor-photo-placeholder" aria-hidden="true"><span>👨‍⚕️</span><small>ছবি যুক্ত করুন</small>
+                </div>
+              </div>
+              <h3>ডা. সাইফুল রহমান</h3>
+              <p class="specialty">অর্থোপেডিক্স বিশেষজ্ঞ</p>
+              
+              <a class="btn btn-outline" href="doctors.html">চিকিৎসক পেজ দেখুন</a>
+            </article>
+            <article class="card specialist-card doctor-slide">
+              <div class="doctor-photo-slot">
+                <img src="./assets/images/doctors/doctor-6.jpg" alt="ডা. ফারহানা কবির-এর ছবি" loading="lazy"
+                  onload="this.parentElement.classList.add('has-photo')"
+                  onerror="this.parentElement.classList.remove('has-photo')">
+                <div class="doctor-photo-placeholder" aria-hidden="true"><span>👨‍⚕️</span><small>ছবি যুক্ত করুন</small>
+                </div>
+              </div>
+              <h3>ডা. ফারহানা কবির</h3>
+              <p class="specialty">নিউরোমেডিসিন বিশেষজ্ঞ</p>
+            
+              <a class="btn btn-outline" href="doctors.html">চিকিৎসক পেজ দেখুন</a>
+            </article>
+          </div>
+          <button class="doctor-next" type="button" aria-label="পরের চিকিৎসক">&#10095;</button>
+        </div>
+        <div class="doctor-slider-status" id="doctorSliderStatus" aria-live="off"></div>
+        <div class="actions"><a class="btn" href="doctors.html">সব চিকিৎসক দেখুন →</a></div>
+      </div>
+    </section>
+    <section class="section section-soft" id="unique-services">
+      <div class="container"><span class="eyebrow">OUR SPECIAL SERVICES</span>
+        <h2>হাসপাতালের বিশেষ সেবাসমূহ</h2>
+        <p class="section-intro">এক জায়গা থেকে প্রয়োজনীয় সেবার তথ্য খুঁজুন। বাস্তব সেবার প্রাপ্যতা হাসপাতালের সঙ্গে
+          নিশ্চিত করুন।</p>
+        <div class="grid grid-three">
+          <a class="card unique-service" href="live-serial.html">
+            <div class="iconbox">🔢</div>
+            <h3>লাইভ সিরিয়াল</h3>
+            <p>সিরিয়াল ও অপেক্ষার তথ্য দেখার জন্য নির্দিষ্ট পেজ।</p><span class="link">বিস্তারিত →</span>
+          </a>
+          <a class="card unique-service" href="appointments.html">
+            <div class="iconbox">📅</div>
+            <h3>অনলাইন সিরিয়াল অনুরোধ</h3>
+            <p>সহজ ফর্মে অ্যাপয়েন্টমেন্টের তথ্য দিন (ডেমো)।</p><span class="link">বিস্তারিত →</span>
+          </a>
+          <a class="card unique-service" href="tests.html">
+            <div class="iconbox">🧪</div>
+            <h3>ডায়াগনস্টিক তথ্য</h3>
+            <p>পরীক্ষা ও রিপোর্ট-সংক্রান্ত প্রয়োজনীয় তথ্য।</p><span class="link">বিস্তারিত →</span>
+          </a>
+          <a class="card unique-service" href="pharmacy.html">
+            <div class="iconbox">💊</div>
+            <h3>ফার্মেসি তথ্য</h3>
+            <p>ওষুধ ও ফার্মেসি-সংক্রান্ত তথ্যের পেজ।</p><span class="link">বিস্তারিত →</span>
+          </a>
+          <a class="card unique-service" href="blood-donors.html">
+            <div class="iconbox">🩸</div>
+            <h3>রক্তদাতা সহায়তা</h3>
+            <p>রক্তদাতা-সংক্রান্ত তথ্য খোঁজার জায়গা।</p><span class="link">বিস্তারিত →</span>
+          </a>
+          <a class="card unique-service" href="ambulance.html">
+            <div class="iconbox">🚑</div>
+            <h3>জরুরি সেবার তথ্য</h3>
+            <p>জরুরি যোগাযোগ ও প্রয়োজনীয় নির্দেশনা।</p><span class="link">বিস্তারিত →</span>
+          </a>
+        </div>
+        <p class="service-disclaimer">দ্রষ্টব্য: এই ওয়েবসাইট ডেমো। অনলাইন ফর্মের অনুরোধ হাসপাতালে পৌঁছায় না; জরুরি
+          অবস্থায় ৯৯৯-এ কল করুন।</p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container split">
+        <div><span class="eyebrow">OUR LOCATION</span>
+          <h2>মহিপাল, ফেনী</h2>
+          <p>হাসপাতালের নির্দিষ্ট ভবন ও পিন যাচাইয়ের পর যুক্ত করা যাবে।</p><a class="btn btn-outline"
+            href="https://www.google.com/maps/search/?api=1&amp;query=Mohipal%2C%20Feni%2C%20Bangladesh" target="_blank"
+            rel="noopener">ম্যাপে এলাকা দেখুন ↗</a>
+        </div>
+        <div class="card">
+          <h3>জরুরি সহায়তা</h3>
+          <p>জীবনঝুঁকিপূর্ণ অবস্থায় ওয়েবসাইটের ফর্মের উত্তরের অপেক্ষা করবেন না।</p><a class="btn" href="tel:999">৯৯৯ কল
+            করুন</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3>As-Shifa Hospital</h3>
+          <p>আশ-শিফা হাসপাতাল — মহিপাল, ফেনী, বাংলাদেশ। এই ওয়েবসাইটের সেবার তথ্য ডেমো; হাসপাতালের যাচাইকৃত তথ্য যুক্ত
+            করতে হবে।</p>
+        </div>
+        <div>
+          <h3>দ্রুত লিংক</h3><a href="doctors.html">ডাক্তার</a><a href="appointments.html">অ্যাপয়েন্টমেন্ট</a><a
+            href="tests.html">ডায়াগনস্টিক</a><a href="contact.html">যোগাযোগ</a>
+        </div>
+        <div>
+          <h3>গুরুত্বপূর্ণ</h3><a href="ambulance.html">জরুরি তথ্য</a><a href="billing.html">বিল ও bKash</a><a
+            href="dashboard.html">ড্যাশবোর্ড</a><a href="privacy.html">গোপনীয়তা</a>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 As-Shifa Hospital · Demo website · বাস্তব রোগীর তথ্য জমা দেবেন না।</div>
+    </div>
+  </footer>
+
+  <script>
+    // Homepage doctor carousel. No dependency on assets/app.js.
+    (() => {
+      const slider = document.getElementById('doctorSlider');
+      if (!slider) return;
+      const cards = [...slider.querySelectorAll('.doctor-slide')];
+      const section = document.getElementById('specialist-doctors');
+      const prev = section.querySelector('.doctor-prev');
+      const next = section.querySelector('.doctor-next');
+      const status = document.getElementById('doctorSliderStatus');
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let timer;
+      const visible = () => window.innerWidth <= 600 ? 1 : window.innerWidth <= 900 ? 2 : 3;
+      const maxIndex = () => Math.max(0, cards.length - visible());
+      const current = () => {
+        const first = cards[0].offsetLeft;
+        return cards.reduce((best, card, i) => Math.abs(card.offsetLeft - first - slider.scrollLeft) < Math.abs(cards[best].offsetLeft - first - slider.scrollLeft) ? i : best, 0);
+      };
+      const updateStatus = () => {status.textContent = `${Math.min(current(), maxIndex()) + 1} / ${maxIndex() + 1}`;};
+      const go = i => {
+        const target = Math.max(0, Math.min(i, maxIndex()));
+        slider.scrollTo({left: cards[target].offsetLeft - cards[0].offsetLeft, behavior: reduced ? 'instant' : 'smooth'});
+        status.textContent = `${target + 1} / ${maxIndex() + 1}`;
+      };
+      const forward = () => go(current() >= maxIndex() ? 0 : current() + 1);
+      const backward = () => go(current() <= 0 ? maxIndex() : current() - 1);
+      const stop = () => {clearInterval(timer); timer = undefined;};
+      const start = () => {stop(); if (!reduced && cards.length > visible() && !document.hidden) timer = setInterval(forward, 3500);};
+      next.addEventListener('click', () => {forward(); start();});
+      prev.addEventListener('click', () => {backward(); start();});
+      section.addEventListener('mouseenter', stop);
+      section.addEventListener('mouseleave', start);
+      section.addEventListener('focusin', stop);
+      section.addEventListener('focusout', start);
+      slider.addEventListener('touchstart', stop, {passive: true});
+      slider.addEventListener('touchend', start, {passive: true});
+      slider.addEventListener('scroll', () => {clearTimeout(slider._statusTimeout); slider._statusTimeout = setTimeout(updateStatus, 120);}, {passive: true});
+      window.addEventListener('resize', () => {go(Math.min(current(), maxIndex())); start();});
+      document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+      updateStatus(); start();
+    })();
+  </script>
+</body>
+
+</html>
